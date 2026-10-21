@@ -1,0 +1,393 @@
+{
+  "data": {
+    "customers": 7043,
+    "churn_rate": 0.2653698707936959,
+    "checks": [
+      {
+        "layer": "bronze",
+        "name": "customer id present",
+        "failing_rows": 0,
+        "severity": "error",
+        "note": "",
+        "passed": true
+      },
+      {
+        "layer": "bronze",
+        "name": "customer id unique",
+        "failing_rows": 0,
+        "severity": "error",
+        "note": "",
+        "passed": true
+      },
+      {
+        "layer": "silver",
+        "name": "blank totals repaired (tenure 0 only)",
+        "failing_rows": 11,
+        "severity": "warn",
+        "note": "blank TotalCharges set to 0 for customers in their first month",
+        "passed": false
+      },
+      {
+        "layer": "silver",
+        "name": "total charges known",
+        "failing_rows": 0,
+        "severity": "error",
+        "note": "",
+        "passed": true
+      },
+      {
+        "layer": "silver",
+        "name": "categorical domains",
+        "failing_rows": 0,
+        "severity": "error",
+        "note": "",
+        "passed": true
+      },
+      {
+        "layer": "silver",
+        "name": "charges are positive and tenure in range",
+        "failing_rows": 0,
+        "severity": "error",
+        "note": "",
+        "passed": true
+      },
+      {
+        "layer": "silver",
+        "name": "add-on services require internet",
+        "failing_rows": 0,
+        "severity": "error",
+        "note": "",
+        "passed": true
+      },
+      {
+        "layer": "silver",
+        "name": "total charges consistent with tenure",
+        "failing_rows": 2,
+        "severity": "warn",
+        "note": "lifetime billing differs from tenure x current price by more than 50%",
+        "passed": false
+      },
+      {
+        "layer": "gold",
+        "name": "one row per customer",
+        "failing_rows": 0,
+        "severity": "error",
+        "note": "",
+        "passed": true
+      }
+    ]
+  },
+  "models": {
+    "segment_report": {
+      "auc": 0.8313776355953533,
+      "pr_auc": 0.6046818085276221,
+      "brier": 0.13989271364159098,
+      "top_decile_lift": 2.7099871361406143,
+      "top_decile_capture": 0.2712680577849117
+    },
+    "logistic": {
+      "auc": 0.8449278122927268,
+      "pr_auc": 0.6546903498640932,
+      "brier": 0.1356032050115134,
+      "top_decile_lift": 2.838270550869164,
+      "top_decile_capture": 0.2841091492776886
+    },
+    "boosted_trees": {
+      "auc": 0.8455733517982968,
+      "pr_auc": 0.657946815931801,
+      "brier": 0.13500774753880798,
+      "top_decile_lift": 2.864996262270945,
+      "top_decile_capture": 0.2867843766720171
+    }
+  },
+  "auc_vs_report": {
+    "logistic": {
+      "diff": 0.013550176697373573,
+      "ci_low": 0.00850774066153615,
+      "ci_high": 0.018285801994409604
+    },
+    "boosted_trees": {
+      "diff": 0.014195716202943576,
+      "ci_low": 0.009654823848554378,
+      "ci_high": 0.018619811705272726
+    }
+  },
+  "calibration": [
+    {
+      "predicted": 0.005299211865235554,
+      "observed": 0.01276595744680851,
+      "n": 705
+    },
+    {
+      "predicted": 0.018460907548863034,
+      "observed": 0.022727272727272728,
+      "n": 704
+    },
+    {
+      "predicted": 0.04488644945327949,
+      "observed": 0.045454545454545456,
+      "n": 704
+    },
+    {
+      "predicted": 0.08705369183056033,
+      "observed": 0.09943181818181818,
+      "n": 704
+    },
+    {
+      "predicted": 0.15448894717040537,
+      "observed": 0.1475177304964539,
+      "n": 705
+    },
+    {
+      "predicted": 0.23197766238728973,
+      "observed": 0.2315340909090909,
+      "n": 704
+    },
+    {
+      "predicted": 0.33452735019818647,
+      "observed": 0.32954545454545453,
+      "n": 704
+    },
+    {
+      "predicted": 0.46285918239909235,
+      "observed": 0.4161931818181818,
+      "n": 704
+    },
+    {
+      "predicted": 0.5924204143852002,
+      "observed": 0.5951704545454546,
+      "n": 704
+    },
+    {
+      "predicted": 0.7223519720698708,
+      "observed": 0.7531914893617021,
+      "n": 705
+    }
+  ],
+  "odds_ratios": [
+    {
+      "feature": "tenure_months",
+      "odds_ratio": 0.2425898587089282
+    },
+    {
+      "feature": "contract_Two year",
+      "odds_ratio": 0.45965642424242964
+    },
+    {
+      "feature": "total_charges",
+      "odds_ratio": 1.982215856594462
+    },
+    {
+      "feature": "contract_Month-to-month",
+      "odds_ratio": 1.8294209130657717
+    },
+    {
+      "feature": "phone_service_True",
+      "odds_ratio": 0.5651643109043594
+    },
+    {
+      "feature": "internet_service_No",
+      "odds_ratio": 0.5815891299766928
+    },
+    {
+      "feature": "monthly_charges",
+      "odds_ratio": 1.4653096398938985
+    },
+    {
+      "feature": "internet_service_Fiber optic",
+      "odds_ratio": 1.4488749310438642
+    }
+  ],
+  "survival": {
+    "Month-to-month": {
+      "12": 0.703096636348866,
+      "24": 0.5859154739046674,
+      "72": 0.12895190061439443,
+      "median_months": 35
+    },
+    "One year": {
+      "12": 0.9908082040748656,
+      "24": 0.9782723764279151,
+      "72": 0.5681456820286721,
+      "median_months": null
+    },
+    "Two year": {
+      "12": 1.0,
+      "24": 1.0,
+      "72": 0.9357385806467264,
+      "median_months": null
+    }
+  },
+  "lifetime_value": {
+    "mean": 1500.6606886017526,
+    "horizon_months": 36
+  },
+  "targeting": {
+    "offer_cost": 50.0,
+    "save_rate": 0.3,
+    "budgets": [
+      {
+        "budget": 0.05,
+        "contacted": 352,
+        "strategy": "segment report: rank by segment churn rate",
+        "churners_reached": 259,
+        "profit": 120953,
+        "vs_baseline": 0,
+        "ci_low": 0,
+        "ci_high": 0
+      },
+      {
+        "budget": 0.05,
+        "contacted": 352,
+        "strategy": "segment report: rank by rate x value",
+        "churners_reached": 266,
+        "profit": 146459,
+        "vs_baseline": 25506,
+        "ci_low": 14609,
+        "ci_high": 35282
+      },
+      {
+        "budget": 0.05,
+        "contacted": 352,
+        "strategy": "model: rank by churn probability",
+        "churners_reached": 284,
+        "profit": 147051,
+        "vs_baseline": 26098,
+        "ci_low": 14907,
+        "ci_high": 37434
+      },
+      {
+        "budget": 0.05,
+        "contacted": 352,
+        "strategy": "model: rank by probability x value",
+        "churners_reached": 258,
+        "profit": 150472,
+        "vs_baseline": 29518,
+        "ci_low": 17826,
+        "ci_high": 44590
+      },
+      {
+        "budget": 0.1,
+        "contacted": 704,
+        "strategy": "segment report: rank by segment churn rate",
+        "churners_reached": 506,
+        "profit": 240724,
+        "vs_baseline": 0,
+        "ci_low": 0,
+        "ci_high": 0
+      },
+      {
+        "budget": 0.1,
+        "contacted": 704,
+        "strategy": "segment report: rank by rate x value",
+        "churners_reached": 508,
+        "profit": 265286,
+        "vs_baseline": 24562,
+        "ci_low": 12752,
+        "ci_high": 35649
+      },
+      {
+        "budget": 0.1,
+        "contacted": 704,
+        "strategy": "model: rank by churn probability",
+        "churners_reached": 531,
+        "profit": 259282,
+        "vs_baseline": 18558,
+        "ci_low": 7111,
+        "ci_high": 32561
+      },
+      {
+        "budget": 0.1,
+        "contacted": 704,
+        "strategy": "model: rank by probability x value",
+        "churners_reached": 500,
+        "profit": 276555,
+        "vs_baseline": 35831,
+        "ci_low": 21065,
+        "ci_high": 50672
+      },
+      {
+        "budget": 0.2,
+        "contacted": 1408,
+        "strategy": "segment report: rank by segment churn rate",
+        "churners_reached": 874,
+        "profit": 390083,
+        "vs_baseline": 0,
+        "ci_low": 0,
+        "ci_high": 0
+      },
+      {
+        "budget": 0.2,
+        "contacted": 1408,
+        "strategy": "segment report: rank by rate x value",
+        "churners_reached": 895,
+        "profit": 451377,
+        "vs_baseline": 61294,
+        "ci_low": 47298,
+        "ci_high": 77720
+      },
+      {
+        "budget": 0.2,
+        "contacted": 1408,
+        "strategy": "model: rank by churn probability",
+        "churners_reached": 949,
+        "profit": 446590,
+        "vs_baseline": 56507,
+        "ci_low": 40092,
+        "ci_high": 71350
+      },
+      {
+        "budget": 0.2,
+        "contacted": 1408,
+        "strategy": "model: rank by probability x value",
+        "churners_reached": 910,
+        "profit": 463310,
+        "vs_baseline": 73227,
+        "ci_low": 57909,
+        "ci_high": 90808
+      }
+    ]
+  },
+  "fairness": {
+    "gender": [
+      {
+        "group": "Female",
+        "n": 3488,
+        "auc": 0.8478718084019667,
+        "mean_predicted": 0.2675679470259143,
+        "observed_rate": 0.26920871559633025
+      },
+      {
+        "group": "Male",
+        "n": 3555,
+        "auc": 0.8417253456221196,
+        "mean_predicted": 0.2633616024128092,
+        "observed_rate": 0.2616033755274262
+      }
+    ],
+    "senior_citizen": [
+      {
+        "group": "False",
+        "n": 5901,
+        "auc": 0.8463537901193126,
+        "mean_predicted": 0.2412289275283762,
+        "observed_rate": 0.23606168446026096
+      },
+      {
+        "group": "True",
+        "n": 1142,
+        "auc": 0.8017986473868828,
+        "mean_predicted": 0.39057407570838676,
+        "observed_rate": 0.4168126094570928
+      }
+    ]
+  },
+  "kpis": {
+    "customers": 7043.0,
+    "churn_rate": 0.2653698707936959,
+    "mrr": 456116.6000000002,
+    "mrr_lost": 139130.8499999999,
+    "expected_mrr_at_risk": 68294.0474474422,
+    "expected_lifetime_value": 1500.6606886017491
+  }
+}

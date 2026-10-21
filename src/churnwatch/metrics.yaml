@@ -1,0 +1,46 @@
+# One definition per business metric. Everything that shows a number reads it from here.
+table: gold_customers_scored
+metrics:
+  - name: customers
+    sql: count(*)
+    description: Customers in the snapshot
+  - name: churned
+    sql: sum(churned::int)
+    description: Customers who left within the last month
+  - name: churn_rate
+    sql: avg(churned::int)
+    description: Share of customers who left within the last month
+    format: percent
+  - name: arpu
+    sql: avg(monthly_charges)
+    description: Average monthly charge per customer
+    format: dollars
+  - name: mrr
+    sql: sum(monthly_charges)
+    description: Monthly recurring revenue across all customers in the snapshot
+    format: dollars
+  - name: mrr_lost
+    sql: sum(case when churned then monthly_charges else 0 end)
+    description: Monthly revenue from customers who left (historical reporting looks backward)
+    format: dollars
+  - name: predicted_churn_rate
+    sql: avg(churn_probability)
+    description: Model's average churn probability for active customers (looks forward)
+    format: percent
+  - name: expected_mrr_at_risk
+    sql: sum(case when not churned then churn_probability * monthly_charges else 0 end)
+    description: Expected monthly revenue lost next month from customers still active
+    format: dollars
+  - name: expected_lifetime_value
+    sql: avg(expected_lifetime_value)
+    description: Average remaining revenue per customer (monthly charge x expected remaining months)
+    format: dollars
+dimensions:
+  - {name: contract, sql: contract}
+  - {name: internet_service, sql: internet_service}
+  - {name: payment_method, sql: payment_method}
+  - {name: tenure_band, sql: tenure_band}
+  - {name: senior_citizen, sql: "case when senior_citizen then 'Senior' else 'Not senior' end"}
+  - {name: gender, sql: gender}
+  - {name: status, sql: "case when churned then 'Churned' else 'Active' end"}
+  - {name: risk_tier, sql: risk_tier}

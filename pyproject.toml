@@ -1,0 +1,28 @@
+[project]
+name = "churnwatch"
+version = "0.1.0"
+description = "From churn reporting to churn prediction: medallion pipeline in DuckDB, semantic metrics layer, calibrated churn model, survival-based lifetime value, retention targeting and an interactive dashboard"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = ["duckdb>=1.1", "pandas>=2.2", "numpy>=1.26", "scikit-learn>=1.5", "plotly>=5.24", "pyyaml>=6"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/churnwatch/dashboard.py" = ["E501"]  # the HTML template reads better unwrapped
